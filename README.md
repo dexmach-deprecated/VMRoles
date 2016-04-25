@@ -3,11 +3,13 @@ This repo contains a couple of Windows Azure Pack VM Roles
 
 ## RDSGW
 Remote Desktop Services - Remote Gateway
-Workgroup version and Domain Version
+Workgroup version and Domain Version  
+[Show repository and documentation](RDSGW)
 
 ## RDSSH
 Remote Desktop Service - Session Host Environment
-Full RDS Environment
+Full RDS Environment  
+[Show repository and documentation](RDSSH)
 
 ## SQL2016
 SQL Server 2016
