@@ -147,3 +147,7 @@ It has to be an IP address which is available within the virtual network subnet 
 This setting only surfaces in the NVGRE VM Role (this is necaserry as the DHCP protocol used with NVGRE is not RFC compliant).  
 *For VLAN Static, besides the two IP addresses for the VMs, an additional one is reserved from the static IP pool.*  
 *For VLAN DHCP, a DHCP server assigns this IP address.*  
+
+##Active Directory
+The domain join account used with this VM Role must have aditional Active Directory permissions.  
+On the OU or container in which Computer accounts are created by default the domain join account needs full controll on computer objects within that OU or container.
