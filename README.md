@@ -13,10 +13,13 @@ Full RDS Environment
 
 ## SQL2016
 SQL Server 2016
-Workgroup version and Domain Version
+Workgroup version and Domain Version  
+[Show repository and documentation](SQL2016)
 
 ## SQL2016AO
-SQL Server 2016 Always On Cluster
+SQL Server 2016 Always On Cluster  
+[Show repository and documentation](SQL2016AO)  
+
 As a cluster has dependancies on the underlaying network, this VM Role exists in 3 version which reflect the possible network technologies in use with Azure Pack.
 * NVGRE for Network virtualization
 * VLAN Static for VLAN with Static IP Pool
