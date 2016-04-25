@@ -81,27 +81,27 @@ The Virtual Machine Role is now available to the tenant as part of the selected 
 
 ##Deployment settings
 When deploying this virtual machine role, the user provides mandatory and optional values:  
-Domain:
+**Domain:**  
 ![viewdefdomain](docfiles/viewdef.png)
 
-Workgroup:
+**Workgroup:**  
 ![viewdefworkgroup](docfiles/viewdef2.png)
 
 The main difference between the domain and workgroup version is the Gateway user.
 The domain VM Role will add an exising domain user / group to the local RDGW permission group.  
 The workgroup VM Role will create a new local user and add it to the RDGW permission group.  
-- Generate Self-Signed Certificate  
+- **Generate Self-Signed Certificate**  
 When you check this box, a self-signed certificate will be generated and bound to the RDGW listener.  
 When you leave it unchecked, a PFX will be downloaded using details provided in other options. The certificate in the PFX will be bound to the RDGW listener.
-- Web URI to PFX File
+- **Web URI to PFX File**  
 The PFX must be on an accessible URI.
-- Download PFX Username
+- **Download PFX Username**  
 If the PFX URI requires authentication, a username must be provided here.  
 If no authentication is required, leave the username as anonymous.
-- Download PFX Password
+- **Download PFX Password**  
 If the PFX URI requires authentication, a password must be provided here.  
 If no authentication is required, leave the username as anonymous and just enter some matching characters here.
-- PFX Pin
+- **PFX Pin**  
 If a PFX is used, it will have a pin. Enter the pin needed to access the PFX archive.
 
 Note that if you bring in a certificate using the PFX option, you must create the PFX with the option to include all certificates in the certificate path as well as the private key.
