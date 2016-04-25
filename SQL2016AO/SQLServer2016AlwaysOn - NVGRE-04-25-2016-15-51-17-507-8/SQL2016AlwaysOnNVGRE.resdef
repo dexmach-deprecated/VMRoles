@@ -1,0 +1,159 @@
+﻿{
+        "IntrinsicSettings":  {
+            "HardwareProfile":  {
+                "VMSize":  "[Param.VMRoleVMSize]"
+            },
+            "NetworkProfile":  {
+                "NetworkAdapters":  [
+                    {
+                        "IPAddresses":  [
+                            {
+                                "AllocationMethod":  "Dynamic",
+                                "ConfigurationName":  "IPV4Configuration",
+                                "Type":  "IPV4"
+                            }
+                        ],
+                        "Name":  "NIC1",
+                        "NetworkRef":  "[Param.VMRoleNetworkRef]"
+                    }
+                ]
+            },
+            "OperatingSystemProfile":  {
+                "AdminCredential":  "[Param.VMRoleAdminCredential]",
+                "ComputerNamePattern":  "[Param.VMRoleComputerNamePattern]",
+                "LinuxOperatingSystemProfile":  null,
+                "TimeZone":  "[Param.VMRoleTimeZone]",
+                "WindowsOperatingSystemProfile":  {
+                    "DomainJoin":  {
+                        "DomainJoinCredentials":  "[Param.VMRoleDomainJoinCredentials]",
+                        "DomainToJoin":  "[Param.VMRoleDomainToJoin]"
+                    }
+                }
+            },
+            "ScaleOutSettings":  {
+                "InitialInstanceCount":  "2",
+                "MaximumInstanceCount":  "2",
+                "MinimumInstanceCount":  "2",
+                "UpgradeDomainCount":  "1"
+            },
+            "StorageProfile":  {
+                "DataVirtualHardDisks":  [
+                    {
+                        "DataVirtualHardDiskImage":  "SQLData:1.0.0.0",
+                        "Lun":  "0"
+                    },
+                    {
+                        "DataVirtualHardDiskImage":  "SQLLog:1.0.0.0",
+                        "Lun":  "1"
+                    }
+                ],
+                "OSVirtualHardDiskImage":  "[Param.VMRoleOSVirtualHardDiskImage]"
+            }
+        },
+        "Name":  "SQLServer2016AlwaysOn",
+        "Publisher":  "Microsoft",
+        "ResourceExtensionReferences":  [
+            {
+                "Name":  "SQL2016AlwaysOn-NVGRE",
+                "Publisher":  "Microsoft",
+                "ReferenceName":  "SQL2016AlwaysOn-NVGRE",
+                "ResourceExtensionParameterValues":  "{\"SQLInstanceName\":\"[Param.SQL2016AlwaysOnNVGRESQLInstanceName]\",\"SQLProductKey\":\"[Param.SQL2016AlwaysOnNVGRESQLProductKey]\",\"SQLSecurityMode\":\"[Param.SQL2016AlwaysOnNVGRESQLSecurityMode]\",\"SQLSAPassword\":\"[Param.SQL2016AlwaysOnNVGRESQLSAPassword]\",\"SQLDBESVCAccount\":\"[Param.SQL2016AlwaysOnNVGRESQLDBESVCAccount]\",\"SQLAGTSVCAccount\":\"[Param.SQL2016AlwaysOnNVGRESQLAGTSVCAccount]\",\"SQLPort\":\"[Param.SQL2016AlwaysOnNVGRESQLPort]\",\"DomainJoinAccount\":\"[Param.VMRoleDomainJoinCredentials]\",\"ClusterName\":\"[Param.SQL2016AlwaysOnNVGREClusterName]\",\"ClusterIP\":\"[Param.SQL2016AlwaysOnNVGREClusterIP]\",\"AOIpaddress\":\"[Param.SQL2016AlwaysOnNVGREAOIpaddress]\"}",
+                "Version":  "1.0.0.0"
+            }
+        ],
+        "ResourceParameters":  [
+            {
+                "Description":  "Computer size",
+                "Name":  "VMRoleVMSize",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Operating system disk",
+                "Name":  "VMRoleOSVirtualHardDiskImage",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Administrator credential",
+                "Name":  "VMRoleAdminCredential",
+                "Type":  "Credential"
+            },
+            {
+                "Description":  "Compute name pattern",
+                "Name":  "VMRoleComputerNamePattern",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Network reference",
+                "Name":  "VMRoleNetworkRef",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Resource Extension SQLServer2016. Parameter SQLInstanceName. Script Command Executable Parameters",
+                "Name":  "SQL2016AlwaysOnNVGRESQLInstanceName",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Resource Extension SQLServer2016. Parameter SQLProductKey. Script Command Executable Parameters",
+                "Name":  "SQL2016AlwaysOnNVGRESQLProductKey",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Resource Extension SQLServer2016. Parameter SQLSecurityMode. Script Command Executable Parameters",
+                "Name":  "SQL2016AlwaysOnNVGRESQLSecurityMode",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Resource Extension SQLServer2016. Parameter SQLSAPassword. Script Command Executable Parameters",
+                "Name":  "SQL2016AlwaysOnNVGRESQLSAPassword",
+                "Type":  "SecureString"
+            },
+            {
+                "Description":  "Time zone",
+                "Name":  "VMRoleTimeZone",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Domain to join",
+                "Name":  "VMRoleDomainToJoin",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Domain join credentials",
+                "Name":  "VMRoleDomainJoinCredentials",
+                "Type":  "Credential"
+            },
+            {
+                "Description":  "Resource Extension SQL2016AlwaysOnNVGRE. Parameter SQLDBESVCAccount. Script Command Executable Parameters",
+                "Name":  "SQL2016AlwaysOnNVGRESQLDBESVCAccount",
+                "Type":  "Credential"
+            },
+            {
+                "Description":  "Resource Extension SQL2016AlwaysOnNVGRE. Parameter SQLAGTSVCAccount. Script Command Executable Parameters",
+                "Name":  "SQL2016AlwaysOnNVGRESQLAGTSVCAccount",
+                "Type":  "Credential"
+            },
+            {
+                "Description":  "Resource Extension SQL2016AlwaysOnNVGRE. Parameter SQLPort. Script Command Executable Parameters",
+                "Name":  "SQL2016AlwaysOnNVGRESQLPort",
+                "Type":  "Int"
+            },
+            {
+                "Description":  "Resource Extension SQL2016AlwaysOnNVGRE. Parameter ClusterName. Script Command Executable Parameters",
+                "Name":  "SQL2016AlwaysOnNVGREClusterName",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Resource Extension SQL2016AlwaysOnNVGRE. Parameter ClusterIP. Script Command Executable Parameters",
+                "Name":  "SQL2016AlwaysOnNVGREClusterIP",
+                "Type":  "String"
+            },
+            {
+                "Description":  "Resource Extension SQL2016AlwaysOnNVGRE. Parameter AOIpaddress. Script Command Executable Parameters",
+                "Name":  "SQL2016AlwaysOnNVGREAOIpaddress",
+                "Type":  "String"
+            }
+        ],
+        "SchemaVersion":  "1.0",
+        "Type":  "Microsoft.Compute\/VMRole\/1.0",
+        "Version":  "1.0.0.0"
+    }

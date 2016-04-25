@@ -2,13 +2,19 @@
 Windows Azure Pack Gallery Resource
 
 ## Overview
-The SQL 2016 gallery resources enable a service provider to publish a gallery item for tenants to deploy either a workgroup based or an Active Directory Domain joined SQL 2016 virtual machine role on Windows Server 2012 R2. Additionally, the user may optionally supply a SQL Server product key (if a product key is not provided, the SQL Server will be configured in evaluation mode).
+The SQL 2016 Always On gallery resources enable a service provider to publish a gallery item for tenants to deploy two Active Directory Domain joined SQL 2016 Always On virtual machines on Windows Server 2012 R2. Additionally, the user may optionally supply a SQL Server product key (if a product key is not provided, the SQL Servers will be configured in evaluation mode).
 In order to publish the gallery resources as a gallery item, you must: 
 - Import the resource extension package into System Center Virtual Machine Manager.
 - Ensure the virtual hard disks in SCVMM are properly prepared and have all the necessary properties set.
 - Import the resource definition package as a gallery item.
 - Make the gallery item public.
 - Add the gallery item to a plan.
+
+This VM Role comes in 3 editions:
+* NVGRE for Network virtualization.
+* VLAN Static for VLAN with Static IP Pool.
+* VLAN DHCP for VLAN with DHCP service.
+The service provider has to pick the edition which reflects the underlying Network setup.
 
 ##System Center Virtual Machine Manager 
 In order to use a gallery resource, you must take the following actions in System Center Virtual Machine Manager.
@@ -17,7 +23,7 @@ Using PowerShell, you must import the resource extension package into the virtua
 Sample Windows PowerShell:
 ```PowerShell
 $libsharepath = '' #you must set the library sharepath from your environment
-$resextpkg = 'c:\GalleryResources\SQL2016\SQLServer2016.resextpkg'
+$resextpkg = 'c:\GalleryResources\SQL2016AO\SQLServer2016AlwaysOn - NVGRE.resextpkg'
 Import-CloudResourceExtension –ResourceExtensionPath $resextpkg  –SharePath $libsharepath -AllowUnencryptedTransfer
 ```
 The import can only be done using PowerShell.
@@ -61,7 +67,7 @@ Sysprep.exe /generalize /oobe /shutdown
 ```
 
 ####Prepare Data Disks
-The SQL 2016 VMRole depends on the presence of 2 datadisk.
+The SQL 2016 Always On VMRole depends on the presence of 2 data disks.
 On a server with Hyper-V enabled run:
 ```PowerShell
 New-VHD -Path C:\SQLLog.vhdx -SizeBytes 200GB -Dynamic
@@ -109,7 +115,7 @@ The Virtual Machine Role is now available to the tenant as part of the selected 
 
 ##Deployment settings
 When deploying this virtual machine role, the user provides mandatory and optional values:  
-![viewdefdomain](docfiles/viewdef.png)
+![viewdefdomain](docfiles/viewdef.png)  
 - **InstanceName**  
 The disired instance name should be specified here. MSSQLServer is the default instancename. 
 - **Productkey**  
@@ -118,6 +124,26 @@ A SQL Product key should be specified here. For evaluation, leave a star (*).
     * Windows: Allow for authentication using Windows local and AD accounts besides SQL accounts.
     * SQL: Allow for authentication by SQL accounts only.  
 - **SA Password**  
-The Password for the SA Account.  
+The Password for the SA Account. 
+- **DBE SVC Domain Service Account**  
+A domain service account used to run the SQL Database service.  
+- **AGT SVC Domain Service Account**  
+A domain service account used to run the SQL Agent service.  
 - **SQL Instance TCP Port**  
-The port on which the SQL instance should listen (default 1433)
+The port on which the SQL instance should listen (default 1433).  
+*The Always On listener is always configured with the default listener (1433)*
+
+Depending on the Network setup NVGRE, VLAN Static or VLAN DHCP all or some of the following values have to be provided by the user as well:  
+![viewdefdomain](docfiles/viewdef2.png)  
+- **ClusterName**  
+This settings always needs to be provided and is used to build the Windows Cluster.  
+For the Always On listener, this value is appended with *"-AO"* (e.g. SQLClus01-AO)  
+- **Cluster IP**  
+This setting only surfaces in the NVGRE VM Role (this is necaserry as the DHCP protocol used with NVGRE is not RFC compliant).  
+It has to be an IP address which is available within the virtual network subnet space of the tenant.  
+*For VLAN Static, besides the two IP addresses for the VMs, an additional one is reserved from the static IP pool.*  
+*For VLAN DHCP, a DHCP server assigns this IP address.*  
+- **Listener IP**  
+This setting only surfaces in the NVGRE VM Role (this is necaserry as the DHCP protocol used with NVGRE is not RFC compliant).  
+*For VLAN Static, besides the two IP addresses for the VMs, an additional one is reserved from the static IP pool.*  
+*For VLAN DHCP, a DHCP server assigns this IP address.*  

@@ -1,0 +1,312 @@
+﻿{
+        "Version":  "1.0.0.0",
+        "Label":  "{{SQLServer2016Label}}",
+        "PublisherLabel":  "{{MicrosoftPublisherLabel}}",
+        "Description":  "{{SQLServer2016Description}}",
+        "DefaultLanguageCode":  "en-US",
+        "Sections":  [
+            {
+                "Title":  "{{SQLServer2016VMSettingsTitle}}",
+                "Categories":  [
+                    {
+                        "CategoryName":  "{{VMCategoryName}}",
+                        "Parameters":  [
+                            {
+                                "Type":  "VMSize",
+                                "Name":  "VMRoleVMSize",
+                                "Label":  "{{VMRoleVMSizeLabel}}",
+                                "Description":  "{{VMRoleVMSizeDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{VMRoleVMSizeValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "OSVirtualHardDisk",
+                                "Name":  "VMRoleOSVirtualHardDiskImage",
+                                "Label":  "{{VMRoleOSVirtualHardDiskImageLabel}}",
+                                "Description":  "{{VMRoleOSVirtualHardDiskImageDescription}}",
+                                "Configurable":  true,
+                                "ImageTags":  [
+                                    "MicrosoftSQLServer2016"
+                                ],
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{VMRoleOSVirtualHardDiskImageValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "Credential",
+                                "Name":  "VMRoleAdminCredential",
+                                "Label":  "{{VMRoleAdminCredentialLabel}}",
+                                "Description":  "{{VMRoleAdminCredentialDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{VMRoleAdminCredentialValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "ComputerNamePattern",
+                                "Name":  "VMRoleComputerNamePattern",
+                                "Label":  "{{VMRoleComputerNamePatternLabel}}",
+                                "DefaultValue":  "SQLSRV###",
+                                "Description":  "{{VMRoleComputerNamePatternDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "MinLength":  1,
+                                    "MaxLength":  15,
+                                    "RegExp":  "",
+                                    "Messages":  {
+                                        "Required":  "{{VMRoleComputerNamePatternValidationMessageRequired}}",
+                                        "Length":  "",
+                                        "RegExp":  ""
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "Network",
+                                "Name":  "VMRoleNetworkRef",
+                                "Label":  "{{VMRoleNetworkRefLabel}}",
+                                "Description":  "{{VMRoleNetworkRefDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{VMRoleNetworkRefValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "OSTimeZone",
+                                "Name":  "VMRoleTimeZone",
+                                "Label":  "{{VMRoleTimeZoneLabel}}",
+                                "DefaultValue":  "",
+                                "Description":  "{{VMRoleTimeZoneDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  false,
+                                    "Messages":  {
+                                        "Required":  "{{VMRoleTimeZoneValidationMessageRequired}}"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Title":  "{{DomainTitle}}",
+                "Categories":  [
+                    {
+                        "CategoryName":  "{{DomainCategoryName}}",
+                        "Parameters":  [
+                            {
+                                "Type":  "String",
+                                "Name":  "VMRoleDomainToJoin",
+                                "Label":  "{{VMRoleDomainToJoinLabel}}",
+                                "Description":  "{{VMRoleDomainToJoinDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{VMRoleDomainToJoinValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "Credential",
+                                "Name":  "VMRoleDomainJoinCredentials",
+                                "Label":  "{{VMRoleDomainJoinCredentialsLabel}}",
+                                "Description":  "{{VMRoleDomainJoinCredentialsDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{VMRoleDomainJoinCredentialsValidationMessageRequired}}"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Title":  "{{SQLServer2016ApplicationSettingsTitle}}",
+                "Categories":  [
+                    {
+                        "CategoryName":  "{{ApplicationCategoryName}}",
+                        "Parameters":  [
+                            {
+                                "Type":  "String",
+                                "Name":  "SQL2016AlwaysOnNVGRESQLInstanceName",
+                                "Label":  "{{SQL2016AlwaysOnNVGRESQLInstanceNameLabel}}",
+                                "DefaultValue":  "MSSQLServer",
+                                "Description":  "{{SQL2016AlwaysOnNVGRESQLInstanceNameDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "MaxLength":  16,
+                                    "Messages":  {
+                                        "Required":  "{{SQL2016AlwaysOnNVGRESQLInstanceNameValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "String",
+                                "Name":  "SQL2016AlwaysOnNVGRESQLProductKey",
+                                "Label":  "{{SQL2016AlwaysOnNVGRESQLProductKeyLabel}}",
+                                "DefaultValue":  "*",
+                                "Description":  "{{SQL2016AlwaysOnNVGRESQLProductKeyDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "MinLength":  1,
+                                    "MaxLength":  0,
+                                    "Messages":  {
+                                        "Required":  "{{SQL2016AlwaysOnNVGRESQLProductKeyValidationMessageRequired}}",
+                                        "Length":  ""
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "Option",
+                                "Name":  "SQL2016AlwaysOnNVGRESQLSecurityMode",
+                                "Label":  "{{SQL2016AlwaysOnNVGRESQLSecurityModeLabel}}",
+                                "DefaultValue":  "SQL",
+                                "Description":  "{{SQL2016AlwaysOnNVGRESQLSecurityModeDescription}}",
+                                "Configurable":  true,
+                                "OptionValues":  [
+                                    {
+                                        "Windows":  "Windows"
+                                    },
+                                    {
+                                        "SQL":  "SQL"
+                                    }
+                                ],
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{SQL2016AlwaysOnNVGRESQLSecurityModeValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "SecureString",
+                                "Name":  "SQL2016AlwaysOnNVGRESQLSAPassword",
+                                "Label":  "{{SQL2016AlwaysOnNVGRESQLSAPasswordLabel}}",
+                                "Description":  "{{SQL2016AlwaysOnNVGRESQLSAPasswordDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{SQL2016AlwaysOnNVGRESQLSAPasswordValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "Credential",
+                                "Name":  "SQL2016AlwaysOnNVGRESQLDBESVCAccount",
+                                "Label":  "{{SQL2016AlwaysOnNVGRESQLDBESVCAccountLabel}}",
+                                "Description":  "{{SQL2016AlwaysOnNVGRESQLDBESVCAccountDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{SQL2016AlwaysOnNVGRESQLDBESVCAccountValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "Credential",
+                                "Name":  "SQL2016AlwaysOnNVGRESQLAGTSVCAccount",
+                                "Label":  "{{SQL2016AlwaysOnNVGRESQLAGTSVCAccountLabel}}",
+                                "Description":  "{{SQL2016AlwaysOnNVGRESQLAGTSVCAccountDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{SQL2016AlwaysOnNVGRESQLAGTSVCAccountValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "Number",
+                                "Name":  "SQL2016AlwaysOnNVGRESQLPort",
+                                "Label":  "{{SQL2016AlwaysOnNVGRESQLPortLabel}}",
+                                "DefaultValue":  "1433",
+                                "Description":  "{{SQL2016AlwaysOnNVGRESQLPortDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{SQL2016AlwaysOnNVGRESQLPortValidationMessageRequired}}"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "Title":  "{{SQLServer2016AlwaysOnTitle}}",
+                "Categories":  [
+                    {
+                        "CategoryName":  "{{AOCategoryName}}",
+                        "Parameters":  [
+                            {
+                                "Type":  "String",
+                                "Name":  "SQL2016AlwaysOnNVGREClusterName",
+                                "Label":  "{{SQL2016AlwaysOnNVGREClusterNameLabel}}",
+                                "Description":  "{{SQL2016AlwaysOnNVGREClusterNameDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "MinLength":  1,
+                                    "MaxLength":  12,
+                                    "Messages":  {
+                                        "Required":  "{{SQL2016AlwaysOnNVGREClusterNameValidationMessageRequired}}",
+                                        "Length":  "{{SQL2016AlwaysOnNVGREClusterNameValidationMessageLength}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "String",
+                                "Name":  "SQL2016AlwaysOnNVGREClusterIP",
+                                "Label":  "{{SQL2016AlwaysOnNVGREClusterIPLabel}}",
+                                "Description":  "{{SQL2016AlwaysOnNVGREClusterIPDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{SQL2016AlwaysOnNVGREClusterIPValidationMessageRequired}}"
+                                    }
+                                }
+                            },
+                            {
+                                "Type":  "String",
+                                "Name":  "SQL2016AlwaysOnNVGREAOIpaddress",
+                                "Label":  "{{SQL2016AlwaysOnNVGREAOIpaddressLabel}}",
+                                "Description":  "{{SQL2016AlwaysOnNVGREAOIpaddressDescription}}",
+                                "Configurable":  true,
+                                "Validation":  {
+                                    "Required":  true,
+                                    "Messages":  {
+                                        "Required":  "{{SQL2016AlwaysOnNVGREAOIpaddressValidationMessageRequired}}"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
