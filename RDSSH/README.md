@@ -1,7 +1,7 @@
-#Remote Desktop Gateway
+#Remote Desktop Session Host
 Windows Azure Pack Gallery Resource
 
-## Overview
+##Overview
 The Remote Desktop Session Host gallery resources enable a service provider to publish a gallery item for tenants to deploy an Active Directory Domain joined Remote Desktop Session Host virtual machine role on Windows Server 2012 R2. Additionally, the user may bring his own certificate by making it available on a web URI. Once deployed, the VM Role will have a fully configured RD Session host enviroment including RD Web, Remote App and RD Gateway functionality.
 In order to publish the gallery resources as a gallery item, you must: 
 - Import the resource extension package into System Center Virtual Machine Manager.

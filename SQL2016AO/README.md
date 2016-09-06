@@ -1,4 +1,4 @@
-#Remote Desktop Gateway
+#SQL 2016 Always On
 Windows Azure Pack Gallery Resource
 
 ## Overview
