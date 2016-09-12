@@ -32,9 +32,9 @@ Evaluations  of Windows Server 2012R2 can be downloaded at the evaluation center
 ####[Option 2] Prepare your own OS disk
 You can prepare your own OS disk instead of using the Evaluation edition option mentioned before. To do this:
 - Create a new VM. Make sure you choose the VM generation for which the VM Role will be created (you can't deploy Gen1 vhdx images to a Gen2 enabled cloud and vice versa).  
-![hv_gen_selection](docfiles/hv_gen_selection.png)  
+![hv_gen_selection](docfiles/hvgenselection.png)  
 - Install one of the supporting Windows Server versions to it. Only UI is supported.
-![os_edition_selection](docfiles/os_edition_selection.png)  
+![os_edition_selection](docfiles/oseditionselection.png)  
     - Windows Server 2012 R2 Datacenter Preview
     - Windows Server 2012 R2 Standard Preview  
 - [optional] Fully patch the OS
