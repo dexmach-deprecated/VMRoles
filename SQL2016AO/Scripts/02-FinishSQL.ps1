@@ -61,9 +61,9 @@ if ($NamedPipesEnabled.ToBoolean($_)) {
     $ArgumentList = $ArgumentList + ' /NPENABLED=0'
 }
  
-if ($ProductKey.Length -eq 25) {
+if ($ProductKey.Length -eq 25 -or $ProductKey.Length -eq 29) {
     Write-Output -InputObject $LocalizedData.KeyProvided
-    $ArgumentList = $ArgumentList + " /PID=$ProductKey"
+    $ArgumentList = $ArgumentList + " /PID=$($ProductKey.Replace('-',''))"
 } else {
     Write-Output -InputObject $LocalizedData.KeyNotProvided
 }

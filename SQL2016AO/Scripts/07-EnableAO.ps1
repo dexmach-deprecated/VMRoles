@@ -72,6 +72,9 @@ $endpoint = New-SqlHadrEndpoint 'Hadr_endpoint' -Port 5022 -Path "SQLSERVER:\SQL
 $null = Set-SqlHadrEndpoint -InputObject $endpoint -State 'Started'
 Invoke-Sqlcmd -Query ('GRANT CONNECT ON ENDPOINT::[Hadr_endpoint] TO [{0}]' -f $SVCAcct) -ServerInstance $ServerInstance
 
+$AOPort = (Get-CimInstance -Namespace $Namespace -ClassName ServerNetworkProtocolProperty `
+    -Filter "ProtocolName='Tcp' and IPAddressName='IPAll' and PropertyName='TcpPort'").PropertyStrVal
+
 if (Test-Path -Path c:\VMRole\First) {
     #Create Listener Computer Object
     $ListenerSearcher = New-Object -TypeName System.DirectoryServices.DirectorySearcher -ArgumentList @(
@@ -143,10 +146,10 @@ if (Test-Path -Path c:\VMRole\First) {
     
     $Subnet = (Get-CimInstance -ClassName Win32_NetworkAdapterConfiguration -Filter 'IPEnabled=True').IPSubnet[0]
     if ($Mode -eq 'NVGRE') {
-        $Listener = New-SqlAvailabilityGroupListener -Path "SQLSERVER:\SQL\$SQLPath\AvailabilityGroups\$AG" -Name $Listener -Verbose -StaticIp $AOIpaddress/$Subnet
+        $Listener = New-SqlAvailabilityGroupListener -Path "SQLSERVER:\SQL\$SQLPath\AvailabilityGroups\$AG" -Name $Listener -Verbose -StaticIp $AOIpaddress/$Subnet -Port $AOPort
     } elseif ($Mode -eq 'VLANDHCP') {
         $AOIpaddress = (Get-CimInstance -ClassName Win32_NetworkAdapterConfiguration -Filter 'IPEnabled=True').IPAddress[0]
-        $Listener = New-SqlAvailabilityGroupListener -Path "SQLSERVER:\SQL\$SQLPath\AvailabilityGroups\$AG" -Name $Listener -Verbose -DhcpSubnet $AOIpaddress/$Subnet
+        $Listener = New-SqlAvailabilityGroupListener -Path "SQLSERVER:\SQL\$SQLPath\AvailabilityGroups\$AG" -Name $Listener -Verbose -DhcpSubnet $AOIpaddress/$Subnet -Port $AOPort
     } else {
         #In VLAN Static mode, node 2 will create the listener as it's secondary NIC IP will be used.
     }
@@ -194,11 +197,11 @@ if (Test-Path -Path c:\VMRole\First) {
     if ($Mode -eq 'VLANStatic') {
         #hijack NIC ip here
         $ClusterIPNIC = (Get-NetAdapter | Sort-Object -Property InterfaceIndex)[1]
-        $AOIpaddress = ($ClusterIPNIC | Get-NetIPAddress).IPAddress
-        $ClusterIPNIC | Get-NetIPAddress | Remove-NetIPAddress -Confirm:$false
+        $AOIpaddress = ($ClusterIPNIC | Get-NetIPAddress -AddressFamily IPv4).IPAddress
+        $ClusterIPNIC | Get-NetIPAddress -IPAddress $AOIpaddress | Remove-NetIPAddress -Confirm:$false
         $ClusterIPNIC | Disable-NetAdapter -Confirm:$false
         $Subnet = (Get-CimInstance -ClassName Win32_NetworkAdapterConfiguration -Filter 'IPEnabled=True').IPSubnet[0]
-        $Listener = New-SqlAvailabilityGroupListener -Path $agPath -Name $Listener -Verbose -StaticIp $AOIpaddress/$Subnet
+        $Listener = New-SqlAvailabilityGroupListener -Path $agPath -Name $Listener -Verbose -StaticIp $AOIpaddress/$Subnet -Port $AOPort
     } else {
         #handled on first node
     }

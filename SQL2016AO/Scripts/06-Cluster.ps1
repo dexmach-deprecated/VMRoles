@@ -29,8 +29,8 @@ if (Test-Path -Path c:\VMRole\First) {
     if ($Mode -eq 'VLANStatic') {
         #Capture IP from second NIC and use that for $ClusterIP
         $ClusterIPNIC = (Get-NetAdapter | Sort-Object -Property InterfaceIndex)[1]
-        $SecondNicIP = ($ClusterIPNIC | Get-NetIPAddress).IPAddress
-        $ClusterIPNIC | Get-NetIPAddress | Remove-NetIPAddress -Confirm:$false
+        $SecondNicIP = ($ClusterIPNIC | Get-NetIPAddress -AddressFamily IPv4).IPAddress
+        $ClusterIPNIC | Get-NetIPAddress -IPAddress $SecondNicIP | Remove-NetIPAddress -Confirm:$false
         $ClusterIPNIC | Disable-NetAdapter -Confirm:$false
         $NewClusterArg.Add('StaticAddress',$SecondNicIP)
     }
