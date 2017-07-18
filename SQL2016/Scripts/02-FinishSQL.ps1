@@ -20,12 +20,6 @@
     [Parameter(Mandatory)]
     [ValidateSet('true','false')]
     [String] $NamedPipesEnabled = 'true',
-
-    [Parameter(Mandatory)]
-    [String] $SQLDBESVCAccount,
-
-    [Parameter(Mandatory)]
-    [String] $SQLAGTSVCAccount,
     
     [ValidateSet('12','13')]
     [String] $SQLVersion = '13'
@@ -42,8 +36,6 @@ $DataVolume = (Get-Volume -FileSystemLabel 'SQLData').DriveLetter
 $LogVolume = (Get-Volume -FileSystemLabel 'SQLLog').DriveLetter
 $ArgumentList = '/ACTION=CompleteImage /INSTANCEID=MSSQLSERVER /INSTANCENAME={0} /IACCEPTSQLSERVERLICENSETERMS /Q /SQLSYSADMINACCOUNTS="BUILTIN\Administrators" /BROWSERSVCSTARTUPTYPE=Automatic /AGTSVCSTARTUPTYPE=Automatic' -f $InstanceName
 $ArgumentList = $ArgumentList + (' /INSTALLSQLDATADIR="{0}:\Microsoft SQL Server" /SQLUSERDBLOGDIR="{1}:\Log" /SQLTEMPDBLOGDIR="{1}:\Log"' -f $DataVolume,$LogVolume)
-$ArgumentList += (' /AGTSVCACCOUNT={0}' -f $SQLAGTSVCAccount.Split(':')[0])
-$ArgumentList += (' /SQLSVCACCOUNT={0}' -f $SQLDBESVCAccount.Split(':')[0])
 
 if ($TCPEnabled.ToBoolean($_)) {
     Write-Output -InputObject $LocalizedData.TCPEnabled
@@ -84,8 +76,6 @@ if (($null -eq $SAPassword) -or ($SAPassword -eq [string]::Empty)) {
 Write-Output -InputObject ($LocalizedData.InstallArg -f $ArgumentList)
 
 $ArgumentList = $ArgumentList + $SAPassword
-$ArgumentList += (' /AGTSVCPASSWORD={0}' -f $SQLAGTSVCAccount.Split(':')[1])
-$ArgumentList += (' /SQLSVCPASSWORD={0}' -f $SQLDBESVCAccount.Split(':')[1])
 
 $SetupProcess = Start-Process -FilePath ('C:\Program Files\Microsoft SQL Server\{0}0\Setup Bootstrap\*\setup.exe' -f $SQLVersion) -ArgumentList $ArgumentList -PassThru
 $SetupProcess | Wait-Process
